@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'login.dart';
 import 'home.dart';
+import 'register.dart';
 import 'NewConv.dart';
 import 'package:wifi_iot/wifi_iot.dart';
 import 'chatdetails.dart';
@@ -14,9 +15,9 @@ class MyApp extends StatelessWidget {
       title: 'Location on Wheels',
       initialRoute: '/',
       routes: {
-        '/' : (context) => Login(),
+        '/' : (context) => Home(),
         '/home' : (context) => Home(),
-        '/Create': (context) => NewConv(),
+        '/register': (context) => Register(),
       },
       theme: new ThemeData(
         primarySwatch: Colors.blue,

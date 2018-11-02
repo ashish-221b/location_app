@@ -52,7 +52,7 @@ class _LoginState extends State<Login> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0.0,16.0,0.0,0.0),
-                  child : Text('Username'),
+                  child : Text('Course_ID'),
                 ),
                 TextFormField(
                   validator: (value) {
@@ -64,7 +64,7 @@ class _LoginState extends State<Login> {
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0.0,16.0,0.0,0.0),
-                  child : Text('Password'),
+                  child : Text('Token'),
                 ),
                 TextFormField(
                   validator: (value) {
