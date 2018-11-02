@@ -8,7 +8,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final String login_url= "http://192.168.0.110:8080/Server/LoginServlet";
+//  final String login_url= "http://192.168.0.110:8080/Server/LoginServlet";
+  final String login_url= "http://10.130.155.5:8080/SpotMe/slogin";
   final _formKey = GlobalKey<FormState>();
   final control_usr = TextEditingController();
   final control_pwd = TextEditingController();
@@ -27,7 +28,9 @@ class _LoginState extends State<Login> {
             .showSnackBar(SnackBar(content: Text('Aw Snap! something went wrong')));
       }else{
         final json = JSON.jsonDecode(response);
+        print(json);
         if(json["status"]){
+          print("hola");
           Navigator.pushReplacementNamed(context, '/home');
         }else{
           Scaffold.of(context)
@@ -75,17 +78,28 @@ class _LoginState extends State<Login> {
                   obscureText: true,
                   controller: control_pwd,
                 ),
-                Padding(
+                Container(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: RaisedButton(
-                    onPressed: () {
-                      if (_formKey.currentState.validate()) {
-                        Session messenger = new Session();
-                        messenger.post(login_url, {"userid" : control_usr.text,"password" : control_pwd.text})
-                            .then((t) => this._updatestate(context, t));
-                      }
-                    },
-                    child: Text('Submit'),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      RaisedButton(
+                        onPressed: () {
+                          if (_formKey.currentState.validate()) {
+                            Session messenger = new Session();
+                            messenger.post(login_url, {"username" : control_usr.text,"password" : control_pwd.text})
+                                .then((t) => this._updatestate(context, t));
+                          }
+                        },
+                        child: Text('Submit'),
+                      ),
+                      RaisedButton(
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(context, '/signup');
+                        },
+                        child: Text('Sign Up'),
+                      ),
+                    ],
                   ),
                 ),
               ],

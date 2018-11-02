@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'login.dart';
-import 'home.dart';
+import 'Wifi_Api.dart';
 import 'NewConv.dart';
+import 'Signup.dart';
 import 'package:wifi_iot/wifi_iot.dart';
 import 'chatdetails.dart';
 
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/' : (context) => Login(),
-        '/home' : (context) => Home(),
+        '/signup' : (context) => Signup(),
+        '/home' : (context) => WifiLoc(),
         '/Create': (context) => NewConv(),
       },
       theme: new ThemeData(
