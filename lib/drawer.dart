@@ -3,8 +3,13 @@ import 'session.dart';
 import 'dart:async';
 import 'dart:convert' as JSON;
 import 'chatdetails.dart';
+import 'session.dart';
+
+import 'package:flutter/services.dart';
 
 class App_Drawer extends StatelessWidget {
+  final String logout_url="http://192.168.0.110:8080/Server/LogoutServlet";
+  Session messenger = new Session();
   @override
   Widget build(BuildContext context){
     return Drawer(
@@ -22,13 +27,19 @@ class App_Drawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text('Register for course'),
+            title: Text('Home'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/home');
+            },
+          ),
+          ListTile(
+            title: Text('Add Courses'),
             onTap: () {
               Navigator.pushReplacementNamed(context, '/register');
             },
           ),
           ListTile(
-            title: Text('Wifi Api'),
+            title: Text('Get Location'),
             onTap: () {
               // Update the state of the app
               // ...
@@ -36,6 +47,42 @@ class App_Drawer extends StatelessWidget {
               Navigator.pushReplacementNamed(context, '/wifi_loc');
             },
           ),
+          ListTile(
+            title: Text('Send Location Feedback'),
+            onTap: () {
+              // Update the state of the app
+              // ...
+              // Then close the drawer
+              print("Send Location Feedback");
+              Navigator.pushReplacementNamed(context, '/loc_feedback');
+            },
+          ),
+          ListTile(
+            title: Text('My Account'),
+            onTap: () {
+              // Update the state of the app
+              // ...
+              // Then close the drawer
+              print("Choosen My Account");
+//              Navigator.pushReplacementNamed(context, '/wifi_loc');
+            },
+          ),
+          ListTile(
+            title: Text('Logout'),
+            onTap: () {
+              print(logout_url);
+                messenger.get(logout_url).then((t){
+                  print(t);
+                  final m = JSON.jsonDecode(t);
+                  if(m["status"]){
+                    Navigator.pushReplacementNamed(context, '/');
+                  }
+                  else{
+                    Navigator.pushReplacementNamed(context, '/');
+                  }
+                });
+            },
+          )
         ],
       ),
     );

@@ -5,6 +5,7 @@ import 'register.dart';
 import 'NewConv.dart';
 import 'Signup.dart';
 import 'Wifi_Api.dart';
+import 'loc_feedback.dart';
 
 void main() => runApp(new MyApp());
 
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         '/signup' : (context) => Signup(),
         '/wifi_loc' : (context) => WifiLoc(),
         '/register' : (context) => Register(),
+        '/loc_feedback' : (context) => Loc_feedback(),
       },
       theme: new ThemeData(
         primarySwatch: Colors.blue,

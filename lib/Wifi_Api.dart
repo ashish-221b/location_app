@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:wifi_iot/wifi_iot.dart';
 import 'session.dart';
 import 'dart:convert' as JSON;
+import 'drawer.dart';
+
 const String STA_DEFAULT_SSID = "STA_SSID";
 const String STA_DEFAULT_PASSWORD = "STA_PASSWORD";
 const NetworkSecurity STA_DEFAULT_SECURITY = NetworkSecurity.WPA;
@@ -203,9 +205,11 @@ class _WifiLocState extends State<WifiLoc> {
                   loadWifiList();
                   getWidgetsForAndroid();
                 },
+            ),
           ),
+          drawer: App_Drawer(),
         ),
-        ),
+
       );
     }
     return new MaterialApp(
