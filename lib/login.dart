@@ -8,8 +8,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-//  final String login_url= "http://192.168.0.110:8080/Server/LoginServlet";
-  final String login_url= "http://10.130.155.5:8080/SpotMe/slogin";
+  final String login_url= "http://192.168.0.110:8080/Server/LoginServlet";
+//  final String login_url= "http://10.130.155.5:8080/SpotMe/slogin";
   final _formKey = GlobalKey<FormState>();
   final control_usr = TextEditingController();
   final control_pwd = TextEditingController();
@@ -55,7 +55,7 @@ class _LoginState extends State<Login> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0.0,16.0,0.0,0.0),
-                  child : Text('Course_ID'),
+                  child : Text('Username'),
                 ),
                 TextFormField(
                   validator: (value) {
@@ -67,7 +67,7 @@ class _LoginState extends State<Login> {
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0.0,16.0,0.0,0.0),
-                  child : Text('Token'),
+                  child : Text('Password'),
                 ),
                 TextFormField(
                   validator: (value) {
@@ -87,7 +87,7 @@ class _LoginState extends State<Login> {
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
                             Session messenger = new Session();
-                            messenger.post(login_url, {"username" : control_usr.text,"password" : control_pwd.text})
+                            messenger.post(login_url, {"userid" : control_usr.text,"password" : control_pwd.text})
                                 .then((t) => this._updatestate(context, t));
                           }
                         },

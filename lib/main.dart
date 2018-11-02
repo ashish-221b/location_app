@@ -7,6 +7,7 @@ import 'package:wifi_iot/wifi_iot.dart';
 import 'chatdetails.dart';
 import 'Signup.dart';
 import 'Wifi_Api.dart';
+import 'loc_feedback.dart';
 
 void main() => runApp(new MyApp());
 
@@ -17,12 +18,13 @@ class MyApp extends StatelessWidget {
       title: 'Location Finder',
       initialRoute: '/',
       routes: {
-        '/' : (context) => Home(),
+        '/' : (context) => Login(),
         '/home' : (context) => Home(),
         '/Create': (context) => NewConv(),
         '/signup' : (context) => Signup(),
         '/wifi_loc' : (context) => WifiLoc(),
         '/register' : (context) => Register(),
+        '/loc_feedback' : (context) => Loc_feedback(),
       },
       theme: new ThemeData(
         primarySwatch: Colors.blue,
