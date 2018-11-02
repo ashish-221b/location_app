@@ -12,12 +12,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Location on Wheels',
+      title: 'whatasap on Wheels',
       initialRoute: '/',
       routes: {
-        '/' : (context) => Home(),
+        '/' : (context) => Login(),
         '/home' : (context) => Home(),
-        '/register': (context) => Register(),
+        '/Create': (context) => NewConv(),
+        '/signup' : (context) => Signup()
       },
       theme: new ThemeData(
         primarySwatch: Colors.blue,

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'session.dart';
 import 'dart:convert' as JSON;
 
-class Login extends StatefulWidget {
+class Signup extends StatefulWidget {
   @override
-  _LoginState createState() => new _LoginState();
+  _SignupState createState() => new _SignupState();
 }
 
-class _LoginState extends State<Login> {
-  final String login_url= "http://192.168.0.110:8080/Server/LoginServlet";
+class _SignupState extends State<Signup> {
+  final String login_url= "http://192.168.0.110:8080/Server/SignupServlet";
   final _formKey = GlobalKey<FormState>();
   final control_usr = TextEditingController();
   final control_pwd = TextEditingController();
@@ -30,10 +30,13 @@ class _LoginState extends State<Login> {
       }else{
         final json = JSON.jsonDecode(response);
         if(json["status"]){
-          Navigator.pushReplacementNamed(context, '/home');
+          Navigator.pushReplacementNamed(context, '/');
         }else{
-          Scaffold.of(context)
-              .showSnackBar(SnackBar(content: Text(json["message"])));
+          if(json["message"].contains("duplicate key")){
+            print(json["message"]);
+            Scaffold.of(context)
+                .showSnackBar(SnackBar(content: Text("User Name already exists")));
+          }
         }
       }
     });
@@ -90,25 +93,38 @@ class _LoginState extends State<Login> {
                   obscureText: true,
                   controller: control_pwd_con,
                 ),
-                Padding(
+                Container(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: RaisedButton(
-                    onPressed: () {
-                      if (_formKey.currentState.validate()) {
-                        if(control_pwd.text!=control_pwd_con.text){
-                          setState(() {
-                            Scaffold.of(context)
-                                .showSnackBar(SnackBar(content: Text('Passwords did not match')));
-                            control_pwd.clear();
-                            control_pwd_con.clear();
-                          });
-                        }
-                        Session messenger = new Session();
-                        messenger.post(login_url, {"userid" : control_usr.text,"password" : control_pwd.text})
-                            .then((t) => this._updatestate(context, t));
-                      }
-                    },
-                    child: Text('Submit'),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      RaisedButton(
+                        onPressed: () {
+                          if (_formKey.currentState.validate()) {
+                            if(control_pwd.text!=control_pwd_con.text){
+                              setState(() {
+                                Scaffold.of(context)
+                                    .showSnackBar(SnackBar(content: Text('Passwords did not match')));
+                                control_pwd.clear();
+                                control_pwd_con.clear();
+                              });
+                            }
+                            else{
+                              Session messenger = new Session();
+                              messenger.post(login_url, {"userid" : control_usr.text,"password" : control_pwd.text})
+                                  .then((t) => this._updatestate(context, t));
+                            }
+                          }
+                        },
+                        child: Text('Submit'),
+                      ),
+                      RaisedButton(
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(context, '/');
+                        },
+                        child: Text('Login'),
+                      ),
+                    ],
                   ),
                 ),
               ],
