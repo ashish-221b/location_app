@@ -3,8 +3,6 @@ import 'login.dart';
 import 'home.dart';
 import 'register.dart';
 import 'NewConv.dart';
-import 'package:wifi_iot/wifi_iot.dart';
-import 'chatdetails.dart';
 import 'Signup.dart';
 import 'Wifi_Api.dart';
 
@@ -17,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Location Finder',
       initialRoute: '/',
       routes: {
-        '/' : (context) => Home(),
+        '/' : (context) => Login(),
         '/home' : (context) => Home(),
         '/Create': (context) => NewConv(),
         '/signup' : (context) => Signup(),
