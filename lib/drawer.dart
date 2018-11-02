@@ -33,8 +33,7 @@ class App_Drawer extends StatelessWidget {
               // Update the state of the app
               // ...
               // Then close the drawer
-              Navigator.pop(context);
-//                Navigator.pushReplacement(context, '/');
+              Navigator.pushReplacementNamed(context, '/wifi_loc');
             },
           ),
         ],
