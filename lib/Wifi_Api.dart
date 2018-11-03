@@ -4,6 +4,7 @@ import 'package:wifi_iot/wifi_iot.dart';
 import 'session.dart';
 import 'dart:convert' as JSON;
 import 'drawer.dart';
+import 'config.dart';
 
 const String STA_DEFAULT_SSID = "STA_SSID";
 const String STA_DEFAULT_PASSWORD = "STA_PASSWORD";
@@ -32,7 +33,7 @@ class _WifiLocState extends State<WifiLoc> {
   String _sPreviousAPSSID = "";
   String _sPreviousPreSharedKey = "";
   Session messenger = new Session();
-  final String logout_url="http://192.168.0.110:8080/Server/LogoutServlet";
+  final String logout_url=config.url+config.logout;
   List<WifiNetwork> _htResultNetwork;
   bool _isEnabled = false;
   bool _isConnected = false;
@@ -183,6 +184,7 @@ class _WifiLocState extends State<WifiLoc> {
             title: new Text('Get WifiList'),
             actions: <Widget>[
             new IconButton(icon: const Icon(Icons.exit_to_app), onPressed: (){
+              print(logout_url);
               messenger.get(logout_url).then((t)=>setState((){
                 print(t);
                 final m = JSON.jsonDecode(t);

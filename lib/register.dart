@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:convert' as JSON;
 import 'chatdetails.dart';
 import 'drawer.dart';
+import 'config.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -31,6 +32,7 @@ class _RegisterState extends State<Register> {
 
   }
   Widget build(BuildContext context) {
+    final String register = config.url + config.register;
     return Scaffold(
       appBar: AppBar(
         title: Text("Register For Course"),
@@ -78,11 +80,11 @@ class _RegisterState extends State<Register> {
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: RaisedButton(
                     onPressed: () {
-//                      if (_formKey_reg.currentState.validate()) {
-//                        Session messenger = new Session();
-//                        messenger.post(login_url, {"userid" : control_course.text,"password" : control_token.text})
-//                            .then((t) => this._updatestate(context, t));
-//                      }
+                      if (_formKey_reg.currentState.validate()) {
+                        Session messenger = new Session();
+                        messenger.post(register, {"course_id" : control_course.text,"session_token" : control_token.text})
+                            .then((t) => print(t));
+                      }
                       print({"course" : control_course.text,"token" : control_token.text});
                     },
                     child: Text('Submit'),

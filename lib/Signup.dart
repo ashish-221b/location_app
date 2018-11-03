@@ -7,11 +7,14 @@ class Signup extends StatefulWidget {
   @override
   _SignupState createState() => new _SignupState();
 }
-
+// username first_name last_name email password confirm_password
 class _SignupState extends State<Signup> {
   final String login_url= config.url + config.signup;
   final _formKey = GlobalKey<FormState>();
   final control_usr = TextEditingController();
+  final control_fir = TextEditingController();
+  final control_las = TextEditingController();
+  final control_ema = TextEditingController();
   final control_pwd = TextEditingController();
   final control_pwd_con = TextEditingController();
 
@@ -67,6 +70,42 @@ class _SignupState extends State<Signup> {
                     }
                   },
                   controller: control_usr,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0.0,16.0,0.0,0.0),
+                  child : Text('First name'),
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                  },
+                  controller: control_fir,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0.0,16.0,0.0,0.0),
+                  child : Text('Last name'),
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                  },
+                  controller: control_las,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0.0,16.0,0.0,0.0),
+                  child : Text('Email'),
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                  },
+                  controller: control_ema,
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0.0,16.0,0.0,0.0),

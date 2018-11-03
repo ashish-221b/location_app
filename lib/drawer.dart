@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 
 class App_Drawer extends StatelessWidget {
   final String logout_url= config.url + config.logout;
+  int ticks = 0;
   StreamSubscription periodicSub;
   Session messenger = new Session();
   @override
@@ -61,13 +62,19 @@ class App_Drawer extends StatelessWidget {
           ListTile(
             title: Text('My Account'),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
               print("Choosen My Account");
               periodicSub = new Stream.periodic(const Duration(milliseconds: 1000))
-                  .take(10)
-                  .listen((_) => print('tick'));
+                  .take(11)
+                  .listen((_){
+                  print(ticks);
+                  ticks++;
+                  messenger.get(config.url + config.login + "?test=" + ticks.toString())
+                      .then((t){print(t);});
+                  if(ticks > 10){
+                    this.periodicSub.cancel();
+                    ticks=0;
+                  }
+              });//this.periodicSub.cancel());
 //              Navigator.pushReplacementNamed(context, '/wifi_loc');
             },
           ),
@@ -75,7 +82,7 @@ class App_Drawer extends StatelessWidget {
             title: Text('Logout'),
             onTap: () {
               print(logout_url);
-                messenger.get(logout_url).then((t){
+                messenger.post(logout_url,{}).then((t){
                   print(t);
                   final m = JSON.jsonDecode(t);
                   if(m["status"]){

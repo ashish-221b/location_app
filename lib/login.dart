@@ -28,6 +28,7 @@ class _LoginState extends State<Login> {
         Scaffold.of(context)
             .showSnackBar(SnackBar(content: Text('Aw Snap! something went wrong')));
       }else{
+        print(response);
         final json = JSON.jsonDecode(response);
         print(json);
         if(json["status"]){
@@ -105,7 +106,7 @@ class _LoginState extends State<Login> {
                             height: 50.0,
                             onPressed: () {
                               if (_formKey.currentState.validate()) {
-  //                            print(control_usr.text);
+                              print(control_pwd.text);
                                 Session messenger = new Session();
                                 messenger.post(login_url, {"userid" : control_usr.text,"password" : control_pwd.text})
                                     .then((t) => this._updatestate(context, t));
