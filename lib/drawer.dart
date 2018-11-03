@@ -3,15 +3,13 @@ import 'session.dart';
 import 'dart:async';
 import 'dart:convert' as JSON;
 import 'chatdetails.dart';
-import 'session.dart';
-import 'dart:async';
-
+import 'config.dart';
 
 import 'package:flutter/services.dart';
 
 class App_Drawer extends StatelessWidget {
+  final String logout_url= config.url + config.logout;
   StreamSubscription periodicSub;
-  final String logout_url="http://192.168.0.110:8080/Server/LogoutServlet";
   Session messenger = new Session();
   @override
   Widget build(BuildContext context){

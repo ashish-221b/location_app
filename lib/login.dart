@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'session.dart';
+import 'config.dart';
 import 'dart:convert' as JSON;
 
 class Login extends StatefulWidget {
@@ -8,7 +9,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final String login_url= "http://192.168.0.110:8080/Server/LoginServlet";
+  final String login_url= config.url + config.login;
 //  final String login_url= "http://10.130.155.5:8080/SpotMe/slogin";
   final _formKey = GlobalKey<FormState>();
   final control_usr = TextEditingController();
@@ -55,7 +56,7 @@ class _LoginState extends State<Login> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0.0,16.0,0.0,0.0),
-                  child : Text('Username'),
+//                  child : Text('UserName'),
                 ),
                 TextFormField(
                   validator: (value) {
@@ -63,11 +64,16 @@ class _LoginState extends State<Login> {
                       return 'Please enter some text';
                     }
                   },
+                  decoration: InputDecoration(
+                    hintText: 'UserName',
+                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+                  ),
                   controller: control_usr,
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0.0,16.0,0.0,0.0),
-                  child : Text('Password'),
+//                  child : Text('Password'),
                 ),
                 TextFormField(
                   validator: (value) {
@@ -75,30 +81,59 @@ class _LoginState extends State<Login> {
                       return 'Please enter some text';
                     }
                   },
+                  decoration: InputDecoration(
+                    hintText: 'Password',
+                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+                  ),
                   obscureText: true,
                   controller: control_pwd,
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Row(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0,horizontal: 1.0),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      RaisedButton(
-                        onPressed: () {
-                          if (_formKey.currentState.validate()) {
-                            Session messenger = new Session();
-                            messenger.post(login_url, {"userid" : control_usr.text,"password" : control_pwd.text})
-                                .then((t) => this._updatestate(context, t));
-                          }
-                        },
-                        child: Text('Submit'),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
+                        child : Material(
+                          borderRadius: BorderRadius.circular(30.0),
+                          shadowColor: Colors.lightBlueAccent.shade100,
+                          elevation: 5.0,
+                          child:MaterialButton(
+                            minWidth: 400.0,
+                            height: 50.0,
+                            onPressed: () {
+                              if (_formKey.currentState.validate()) {
+  //                            print(control_usr.text);
+                                Session messenger = new Session();
+                                messenger.post(login_url, {"userid" : control_usr.text,"password" : control_pwd.text})
+                                    .then((t) => this._updatestate(context, t));
+                              }
+                            },
+                            color: Colors.lightBlueAccent,
+                            child: Text('Log In', style: TextStyle(color: Colors.white)),
+                          ),
+                        ),
                       ),
-                      RaisedButton(
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(context, '/signup');
-                        },
-                        child: Text('Sign Up'),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 8.0),
                       ),
+                      Material(
+                        borderRadius: BorderRadius.circular(30.0),
+                        shadowColor: Colors.lightBlueAccent.shade100,
+                        elevation: 5.0,
+                        child: MaterialButton(
+                          minWidth: 400.0,
+                          height: 50.0,
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(context, '/signup');
+                          },
+                          color: Colors.lightBlueAccent,
+                          child: Text('Sign Up', style: TextStyle(color: Colors.white)),
+                        ),
+                      ),
+
                     ],
                   ),
                 ),
