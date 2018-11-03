@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'session.dart';
+import 'config.dart';
 import 'dart:convert' as JSON;
 
 class Signup extends StatefulWidget {
@@ -8,7 +9,7 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
-  final String login_url= "http://192.168.0.110:8080/Server/SignupServlet";
+  final String login_url= config.url + config.signup;
   final _formKey = GlobalKey<FormState>();
   final control_usr = TextEditingController();
   final control_pwd = TextEditingController();

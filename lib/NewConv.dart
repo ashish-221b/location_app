@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'session.dart';
 import 'dart:convert' as JSON;
+import 'config.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'chatdetails.dart';
 class NewConv extends StatefulWidget {
@@ -11,9 +12,9 @@ class NewConv extends StatefulWidget {
 
 class _NewConvState extends State<NewConv> {
   Session messenger = new Session();
-  final String logout_url="http://192.168.0.110:8080/Server/LogoutServlet";
-  final String create_url= "http://192.168.0.110:8080/Server/CreateConversation";
-  final String Auto_url= "http://192.168.0.110:8080/Server/AutoCompleteUser";
+  final String logout_url= config.url + config.logout;
+  final String create_url= config.url + config.create;
+  final String Auto_url= config.url + config.auto;
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
