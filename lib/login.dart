@@ -96,7 +96,8 @@ class _LoginState extends State<Login> {
                     children: [
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 16.0),
-                        child : Material(
+                        ),
+                        Material(
                           borderRadius: BorderRadius.circular(30.0),
                           shadowColor: Colors.lightBlueAccent.shade100,
                           elevation: 5.0,
@@ -115,7 +116,7 @@ class _LoginState extends State<Login> {
                             child: Text('Log In', style: TextStyle(color: Colors.white)),
                           ),
                         ),
-                      ),
+
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 8.0),
                       ),
