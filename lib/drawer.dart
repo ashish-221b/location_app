@@ -4,10 +4,13 @@ import 'dart:async';
 import 'dart:convert' as JSON;
 import 'chatdetails.dart';
 import 'session.dart';
+import 'dart:async';
+
 
 import 'package:flutter/services.dart';
 
 class App_Drawer extends StatelessWidget {
+  StreamSubscription periodicSub;
   final String logout_url="http://192.168.0.110:8080/Server/LogoutServlet";
   Session messenger = new Session();
   @override
@@ -64,6 +67,9 @@ class App_Drawer extends StatelessWidget {
               // ...
               // Then close the drawer
               print("Choosen My Account");
+              periodicSub = new Stream.periodic(const Duration(milliseconds: 1000))
+                  .take(10)
+                  .listen((_) => print('tick'));
 //              Navigator.pushReplacementNamed(context, '/wifi_loc');
             },
           ),
