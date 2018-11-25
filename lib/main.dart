@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
 
         '/Create': (context) => NewConv(),
         '/signup' : (context) => Signup(),
-        '/wifi_loc' : (context) => WifiLoc(),
+        '/wifi_loc' : (context) => Loc_feedback(),
         '/register' : (context) => Register(),
         '/loc_feedback' : (context) => Loc_feedback(),
       },

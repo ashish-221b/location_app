@@ -14,6 +14,7 @@ class App_Drawer extends StatefulWidget {
 class _App_DrawerState extends State<App_Drawer> {
 
   final String logout_url= config.url + config.logout;
+  final String ping_url = config.url+config.ping;
   StreamSubscription periodicSub;
   Session messenger = new Session();
 
@@ -77,7 +78,10 @@ class _App_DrawerState extends State<App_Drawer> {
               print("Choosen My Account");
               periodicSub = new Stream.periodic(const Duration(milliseconds: 1000))
                   .take(10)
-                  .listen((_) => print('tick'));
+                  .listen((_){
+                    messenger.post(ping_url,{"data" : "Hello There!!"}).then((t) => print(t));
+                    print('tick');
+                  });
 //              Navigator.pushReplacementNamed(context, '/wifi_loc');
             },
           ),
