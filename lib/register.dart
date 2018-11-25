@@ -87,6 +87,7 @@ class _RegisterState extends State<Register> {
                         messenger.post(course_register_url, {"course_id" : control_course.text, "session_token" : control_token.text})
                             .then((data) {
                               print(data);
+
                         });
                       }
                     },

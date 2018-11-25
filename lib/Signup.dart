@@ -9,7 +9,7 @@ class Signup extends StatefulWidget {
 }
 // username first_name last_name email password confirm_password
 class _SignupState extends State<Signup> {
-  final String login_url= config.url + config.signup;
+  final String signup_url= config.url + config.signup;
   final _formKey = GlobalKey<FormState>();
   final control_usr = TextEditingController();
   final control_fir = TextEditingController();
@@ -151,7 +151,9 @@ class _SignupState extends State<Signup> {
                             }
                             else{
                               Session messenger = new Session();
-                              messenger.post(login_url, {"userid" : control_usr.text,"password" : control_pwd.text})
+                              messenger.post(signup_url, {"userid" : control_usr.text,
+                                "password" : control_pwd.text
+                              })
                                   .then((t) => this._updatestate(context, t));
                             }
                           }
