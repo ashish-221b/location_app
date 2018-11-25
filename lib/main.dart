@@ -18,12 +18,16 @@ class MyApp extends StatelessWidget {
       routes: {
         '/' : (context) => Login(),
         '/home' : (context) => Home(),
+
         '/Create': (context) => NewConv(),
         '/signup' : (context) => Signup(),
         '/wifi_loc' : (context) => WifiLoc(),
         '/register' : (context) => Register(),
         '/loc_feedback' : (context) => Loc_feedback(),
       },
+//      onUnknownRoute: (RouteSettings settings){
+//        return {'/' : (context) => Home()};
+//      },
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
