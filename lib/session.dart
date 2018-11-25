@@ -15,26 +15,30 @@ class Session {
   }
   Session._internal();
 
+//  Cookie cook = new cookie();
   Map<String, String> headers = {};
 
   Future<String> get(String url) async {
     http.Response response = await http.get(url, headers: headers);
     updateCookie(response);
+    print(headers);
     return response.body;
   }
 
   Future<String> post(String url, dynamic data) async {
     http.Response response = await http.post(url, body: data, headers: headers);
     updateCookie(response);
+    print(headers);
     return response.body;
   }
 
   void updateCookie(http.Response response) {
     String rawCookie = response.headers['set-cookie'];
+    print(rawCookie);
     if (rawCookie != null) {
-      int index = rawCookie.indexOf(';');
+      int index = rawCookie.indexOf('sessionid');
       headers['cookie'] =
-      (index == -1) ? rawCookie : rawCookie.substring(0, index);
+      (index == -1) ? rawCookie : rawCookie.substring(index);
     }
   }
 }

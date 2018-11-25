@@ -18,6 +18,7 @@ class _RegisterState extends State<Register> {
   final _formKey_reg = GlobalKey<FormState>();
   final control_course = TextEditingController();
   final control_token = TextEditingController();
+  final String course_register_url= config.url + config.course_register;
 
   @override
   void dispose(){
@@ -31,8 +32,8 @@ class _RegisterState extends State<Register> {
     super.initState();
 
   }
+
   Widget build(BuildContext context) {
-    final String register = config.url + config.register;
     return Scaffold(
       appBar: AppBar(
         title: Text("Register For Course"),
@@ -81,11 +82,13 @@ class _RegisterState extends State<Register> {
                   child: RaisedButton(
                     onPressed: () {
                       if (_formKey_reg.currentState.validate()) {
+                        print('registering for course');
                         Session messenger = new Session();
-                        messenger.post(register, {"course_id" : control_course.text,"session_token" : control_token.text})
-                            .then((t) => print(t));
+                        messenger.post(course_register_url, {"course_id" : control_course.text, "session_token" : control_token.text})
+                            .then((data) {
+                              print(data);
+                        });
                       }
-                      print({"course" : control_course.text,"token" : control_token.text});
                     },
                     child: Text('Submit'),
                   ),

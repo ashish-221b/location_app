@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wifi_iot/wifi_iot.dart';
+import 'dart:async';
 import 'session.dart';
 import 'dart:convert' as JSON;
 import 'drawer.dart';
@@ -44,9 +45,13 @@ class _WifiLocState extends State<WifiLoc> {
   int _iFrequency = 0;
   String _sIP = "";
 
+  var _List_of_wifi = [];
+  var _standard_wifi = ['eduroam', 'IITB-Wireless', 'IITB-Guest'];
+
   @override
   initState() {
     super.initState();
+    _List_of_wifi = [];
   }
   loadWifiList() async {
     List<WifiNetwork> htResultNetwork;
@@ -58,7 +63,11 @@ class _WifiLocState extends State<WifiLoc> {
     if (!mounted) return;
 
     setState(() {
+      _List_of_wifi = [];
       _htResultNetwork = htResultNetwork;
+      getWidgetsForAndroid();
+      print(_List_of_wifi.toString());
+
     });
   }
   isEnabled() async {
@@ -161,14 +170,19 @@ class _WifiLocState extends State<WifiLoc> {
       List<ListTile> htNetworks = new List();
 
       _htResultNetwork.forEach((oNetwork) {
-        setState(() {
-          print(oNetwork.ssid + " " + oNetwork.bssid + " : " + oNetwork.level.toString());
+
+        // Check for wifi in standard wifi;s
+        if(_standard_wifi.contains(oNetwork.ssid)){
+//          print(oNetwork.ssid + " " + oNetwork.bssid + " : " + oNetwork.level.toString());
+          dynamic _temp_data = [oNetwork.ssid, oNetwork.bssid, oNetwork.level];
+          _List_of_wifi.add(_temp_data);
+
+        }
 //          htNetworks.add(
 //            new ListTile(
 //              title: new Text(oNetwork.ssid + " " + oNetwork.bssid + " : " + oNetwork.level.toString()),
 //            ),
 //          );
-        });
       });
     } else {
       print("Scanning");
@@ -178,11 +192,10 @@ class _WifiLocState extends State<WifiLoc> {
   Widget build(BuildContext poContext) {
     final defaultTheme = Theme.of(context);
     if (defaultTheme.platform == TargetPlatform.android) {
-      return new MaterialApp(
-        home: new Scaffold(
-          appBar: new AppBar(
-            title: new Text('Get WifiList'),
-            actions: <Widget>[
+      return new Scaffold(
+        appBar: new AppBar(
+          title: new Text('Get WifiList'),
+          actions: <Widget>[
             new IconButton(icon: const Icon(Icons.exit_to_app), onPressed: (){
               print(logout_url);
               messenger.get(logout_url).then((t)=>setState((){
@@ -196,30 +209,27 @@ class _WifiLocState extends State<WifiLoc> {
                 }
               }));
             }),
-            ],
+          ],
 //            actions: getActionsForAndroid(),
-          ),
-          body: new Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: RaisedButton(
-                child: new Text("Get Location"),
-                onPressed: () {
-                  loadWifiList();
-                  getWidgetsForAndroid();
-                },
-            ),
-          ),
-          drawer: App_Drawer(),
         ),
+        body: new Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          child: RaisedButton(
+            child: new Text("Get Location"),
+            onPressed: () {
+              loadWifiList();
 
+              },
+          ),
+        ),
+        drawer: App_Drawer(),
       );
     }
-    return new MaterialApp(
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: new Text('Plugin IoT Wifi app for ???'),
-        ),
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('Plugin IoT Wifi app for ???'),
       ),
+      drawer: new App_Drawer(),
     );
   }
 }
