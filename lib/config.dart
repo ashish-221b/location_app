@@ -8,6 +8,8 @@ class config{
 
   static const String create = "/CreateConversation";
   static const String auto = "/AutoCompleteUser";
+  static const String get_loc = "get_location/";
+  static const String add_loc = "add_location/";
 
   static bool isLoading;
 }

@@ -35,13 +35,6 @@ class _HomeState extends State<Home> {
       }
 
     });
-    print("in_initstate");
-    Widget build(BuildContext context) {
-      return Scaffold(
-        appBar: AppBar(title: Text("Find your Location")),
-        body: Text("hello")
-      );
-    }
 //    super.initState();
 
   }

@@ -174,8 +174,13 @@ class _WifiLocState extends State<WifiLoc> {
         // Check for wifi in standard wifi;s
         if(_standard_wifi.contains(oNetwork.ssid)){
 //          print(oNetwork.ssid + " " + oNetwork.bssid + " : " + oNetwork.level.toString());
-          dynamic _temp_data = [oNetwork.ssid, oNetwork.bssid, oNetwork.level];
+          dynamic _temp_data = {};
+          _temp_data['ssid'] = oNetwork.ssid;
+          _temp_data['bssid'] = oNetwork.bssid;
+          _temp_data['signal_strength'] = oNetwork.level;
+//          oNetwork.ssid, oNetwork.bssid, oNetwork.level
           _List_of_wifi.add(_temp_data);
+
 
         }
 //          htNetworks.add(

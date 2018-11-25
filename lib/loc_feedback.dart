@@ -6,6 +6,8 @@ import 'dart:async';
 import 'dart:convert' as JSON;
 import 'chatdetails.dart';
 import 'drawer.dart';
+import 'config.dart';
+import 'loading.dart';
 
 class Loc_feedback extends StatefulWidget {
   @override
@@ -14,12 +16,15 @@ class Loc_feedback extends StatefulWidget {
 
 class _Loc_feedbackState extends State<Loc_feedback> {
 
+  Session messenger = new Session();
+  final String get_loc_url = config.url + config.get_loc;
   final _formKey_feed = GlobalKey<FormState>();
   final control_location = TextEditingController();
 //  final control_token = TextEditingController();
 
-  List<DropdownMenuItem<String>> _dropDropMenuItems = [new DropdownMenuItem(value: "AAA", child: new Text("abc")),
-  new DropdownMenuItem(value: "BBB", child: new Text("bcd"))];
+  List<DropdownMenuItem<String>> _dropDropMenuItems = [];
+//  [new DropdownMenuItem(value: "AAA", child: new Text("abc")),
+//  new DropdownMenuItem(value: "BBB", child: new Text("bcd"))];
   String curr_value;
 //  print(_dropDropMenuItems);
 
@@ -33,10 +38,30 @@ class _Loc_feedbackState extends State<Loc_feedback> {
   @override
   void initState(){
 //    curr_value = _dropDropMenuItems[0].value;
+    config.isLoading = true;
+    messenger.get(get_loc_url).then((data) {
+      print(data);
+      List<dynamic> loc_data = JSON.json.decode(data)['data'];
+
+      for (int i = 0; i < loc_data.length; i++) {
+        _dropDropMenuItems.add(new DropdownMenuItem(
+            value: loc_data[i]['location_id'].toString(),
+            child: new Text(loc_data[i]['location_name'].toString())
+        ));
+      }
+      setState(() {
+        print(_dropDropMenuItems);
+        config.isLoading = false;
+      });
+    });
     super.initState();
 
   }
   Widget build(BuildContext context) {
+    if(config.isLoading){
+      return App_loading();
+    }
+
     return Scaffold(
       appBar: AppBar(
           title: Text("Send Your Feedback")),
@@ -50,6 +75,7 @@ class _Loc_feedbackState extends State<Loc_feedback> {
 
                 DropdownButton(
                   value: curr_value,
+                  hint: Text('Select a location'),
                   items: _dropDropMenuItems,
                   onChanged: (X){
                     setState((){
@@ -67,7 +93,8 @@ class _Loc_feedbackState extends State<Loc_feedback> {
 //                        messenger.post(login_url, {"userid" : control_course.text,"password" : control_token.text})
 //                            .then((t) => this._updatestate(context, t));
 //                      }
-//                      print(curr_value);
+                      print(curr_value);
+
                     },
                     child: Text('Submit'),
                   ),
