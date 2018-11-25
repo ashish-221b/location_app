@@ -5,7 +5,7 @@ class config{
   static const String logout = "slogout/";
   static const String home = "shome/";
   static const String course_register = "scourse_register/";
-
+  static const String ping = "ping/";
   static const String create = "/CreateConversation";
   static const String auto = "/AutoCompleteUser";
   static const String get_loc = "get_location/";

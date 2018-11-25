@@ -14,7 +14,7 @@ class App_Drawer extends StatefulWidget {
 class _App_DrawerState extends State<App_Drawer> {
 
   final String logout_url= config.url + config.logout;
-  int ticks = 0;
+  final String ping_url = config.url+config.ping;
   StreamSubscription periodicSub;
   Session messenger = new Session();
 
@@ -72,19 +72,16 @@ class _App_DrawerState extends State<App_Drawer> {
           new ListTile(
             title: Text('My Account'),
             onTap: () {
+              // Update the state of the app
+              // ...
+              // Then close the drawer
               print("Choosen My Account");
               periodicSub = new Stream.periodic(const Duration(milliseconds: 1000))
-                  .take(11)
+                  .take(10)
                   .listen((_){
-                  print(ticks);
-                  ticks++;
-                  messenger.get(config.url + config.login + "?test=" + ticks.toString())
-                      .then((t){print(t);});
-                  if(ticks > 10){
-                    this.periodicSub.cancel();
-                    ticks=0;
-                  }
-              });//this.periodicSub.cancel());
+                    messenger.post(ping_url,{"data" : "Hello There!!"}).then((t) => print(t));
+                    print('tick');
+                  });
 //              Navigator.pushReplacementNamed(context, '/wifi_loc');
             },
           ),
@@ -92,7 +89,7 @@ class _App_DrawerState extends State<App_Drawer> {
             title: Text('Logout'),
             onTap: () {
               print(logout_url);
-                messenger.post(logout_url,{}).then((t){
+                messenger.get(logout_url).then((t){
                   print(t);
                   final m = JSON.jsonDecode(t);
                   if(m["status"]){

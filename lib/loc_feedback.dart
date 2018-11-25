@@ -8,6 +8,7 @@ import 'chatdetails.dart';
 import 'drawer.dart';
 import 'config.dart';
 import 'loading.dart';
+import 'Wifi_Api.dart';
 
 class Loc_feedback extends StatefulWidget {
   @override
@@ -20,6 +21,8 @@ class _Loc_feedbackState extends State<Loc_feedback> {
   final String get_loc_url = config.url + config.get_loc;
   final _formKey_feed = GlobalKey<FormState>();
   final control_location = TextEditingController();
+  WifiApi wa = new WifiApi();
+  Session messenger = new Session();
 //  final control_token = TextEditingController();
 
   List<DropdownMenuItem<String>> _dropDropMenuItems = [];
@@ -88,6 +91,9 @@ class _Loc_feedbackState extends State<Loc_feedback> {
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: RaisedButton(
                     onPressed: () {
+//                      print(messenger.toString());
+//                      print(wa.toString());
+                        wa.loadWifiList().then((t) => print(t.toString()));
 //                      if (_formKey_reg.currentState.validate()) {
 //                        Session messenger = new Session();
 //                        messenger.post(login_url, {"userid" : control_course.text,"password" : control_token.text})
