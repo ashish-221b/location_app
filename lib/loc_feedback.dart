@@ -22,7 +22,7 @@ class _Loc_feedbackState extends State<Loc_feedback> {
   final _formKey_feed = GlobalKey<FormState>();
   final control_location = TextEditingController();
   WifiApi wa = new WifiApi();
-  Session messenger = new Session();
+//  Session messenger = new Session();
 //  final control_token = TextEditingController();
 
   List<DropdownMenuItem<String>> _dropDropMenuItems = [];

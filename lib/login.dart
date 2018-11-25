@@ -42,8 +42,8 @@ class _LoginState extends State<Login> {
         }else{
           Scaffold.of(context)
               .showSnackBar(SnackBar(content: Text(json["error_msg"])));
-          Navigator.pushReplacementNamed(context, '/');
-          config.isLoading = true;
+//          Navigator.pushReplacementNamed(context, '/');
+          config.isLoading = false;
         }
       }
     });

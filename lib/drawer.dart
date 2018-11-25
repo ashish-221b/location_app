@@ -76,12 +76,8 @@ class _App_DrawerState extends State<App_Drawer> {
               // ...
               // Then close the drawer
               print("Choosen My Account");
-              periodicSub = new Stream.periodic(const Duration(milliseconds: 1000))
-                  .take(10)
-                  .listen((_){
-                    messenger.post(ping_url,{"data" : "Hello There!!"}).then((t) => print(t));
-                    print('tick');
-                  });
+//              int j = 0;
+
 //              Navigator.pushReplacementNamed(context, '/wifi_loc');
             },
           ),

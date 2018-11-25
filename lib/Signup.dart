@@ -151,7 +151,7 @@ class _SignupState extends State<Signup> {
                             }
                             else{
                               Session messenger = new Session();
-                              messenger.post(login_url, {"userid" : control_usr.text,"password" : control_pwd.text})
+                              messenger.post(login_url, {"last_name" : control_las.text,"first_name" : control_fir.text,"email" : control_ema.text,"userid" : control_usr.text,"password" : control_pwd.text})
                                   .then((t) => this._updatestate(context, t));
                             }
                           }
