@@ -2,14 +2,21 @@ import 'package:flutter/material.dart';
 import 'session.dart';
 import 'dart:async';
 import 'dart:convert' as JSON;
-import 'chatdetails.dart';
 import 'config.dart';
 
 import 'package:flutter/services.dart';
 
-class App_Drawer extends StatelessWidget {
+class App_Drawer extends StatefulWidget {
+  @override
+  _App_DrawerState createState() => new _App_DrawerState();
+}
+
+class _App_DrawerState extends State<App_Drawer> {
+
   final String logout_url= config.url + config.logout;
+  StreamSubscription periodicSub;
   Session messenger = new Session();
+
   @override
   Widget build(BuildContext context){
     return Drawer(
@@ -26,48 +33,55 @@ class App_Drawer extends StatelessWidget {
               color: Colors.blue,
             ),
           ),
-          ListTile(
+          new ListTile(
             title: Text('Home'),
             onTap: () {
+              Navigator.pop(context);
               Navigator.pushReplacementNamed(context, '/home');
             },
           ),
-          ListTile(
+          new ListTile(
             title: Text('Add Courses'),
             onTap: () {
+              Navigator.pop(context);
               Navigator.pushReplacementNamed(context, '/register');
             },
           ),
-          ListTile(
+          new ListTile(
             title: Text('Get Location'),
             onTap: () {
               // Update the state of the app
               // ...
               // Then close the drawer
+              Navigator.pop(context);
               Navigator.pushReplacementNamed(context, '/wifi_loc');
             },
           ),
-          ListTile(
+          new ListTile(
             title: Text('Send Location Feedback'),
             onTap: () {
               // Update the state of the app
               // ...
               // Then close the drawer
               print("Send Location Feedback");
+              Navigator.pop(context);
               Navigator.pushReplacementNamed(context, '/loc_feedback');
             },
           ),
-          ListTile(
+          new ListTile(
             title: Text('My Account'),
             onTap: () {
               // Update the state of the app
               // ...
               // Then close the drawer
               print("Choosen My Account");
+              periodicSub = new Stream.periodic(const Duration(milliseconds: 1000))
+                  .take(10)
+                  .listen((_) => print('tick'));
 //              Navigator.pushReplacementNamed(context, '/wifi_loc');
             },
           ),
-          ListTile(
+          new ListTile(
             title: Text('Logout'),
             onTap: () {
               print(logout_url);
@@ -75,9 +89,11 @@ class App_Drawer extends StatelessWidget {
                   print(t);
                   final m = JSON.jsonDecode(t);
                   if(m["status"]){
+                    Navigator.pop(context);
                     Navigator.pushReplacementNamed(context, '/');
                   }
                   else{
+                    Navigator.pop(context);
                     Navigator.pushReplacementNamed(context, '/');
                   }
                 });
