@@ -3,7 +3,8 @@ import 'session.dart';
 import 'config.dart';
 import 'dart:convert' as JSON;
 import 'loading.dart';
-
+import 'dart:async';import 'Wifi_Api.dart';
+import 'package:flutter/services.dart';
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => new _LoginState();
@@ -11,11 +12,14 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final String login_url= config.url + config.login;
+  final String ping_url = config.url+config.ping;
+  StreamSubscription periodicSub;
 //  final String login_url= "http://10.130.155.5:8080/SpotMe/slogin";
   final _formKey = GlobalKey<FormState>();
   final control_usr = TextEditingController();
   final control_pwd = TextEditingController();
-
+  WifiApi wa = new WifiApi();
+  Session messenger = new Session();
   @override
   void initState(){
     config.isLoading = false;
@@ -38,6 +42,20 @@ class _LoginState extends State<Login> {
       }else{
         final json = JSON.jsonDecode(response);
         if(json["status"]){
+          periodicSub = new Stream.periodic(const Duration(milliseconds: 10000))
+              .take(10000)
+              .listen((_){
+//            print("beacon");
+            wa.loadWifiList().then((t) {
+//              print(t.toString());
+              messenger.post(ping_url,{"wifi-data" : t.toString()}).then((t1) {
+                var data = JSON.json.decode(t1);
+                if(data["logged_in"]==false){
+                  periodicSub.cancel();
+                }
+              });
+            });
+          });
           Navigator.pushReplacementNamed(context, '/home');
         }else{
           Scaffold.of(context)
@@ -121,7 +139,6 @@ class _LoginState extends State<Login> {
                             if (_formKey.currentState.validate()) {
 //                            print(control_usr.text);
 //                              config.isLoading = true;
-                              Session messenger = new Session();
                               messenger.post(login_url, {"userid" : control_usr.text,"password" : control_pwd.text})
                                   .then((t) => this._updatestate(context, t));
 

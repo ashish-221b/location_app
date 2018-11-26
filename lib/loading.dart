@@ -11,7 +11,7 @@ class _App_loadingState extends State<App_loading> {
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      key: config.keyboi,
+//      key: config.keyboi,
       body: Center(
         child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),

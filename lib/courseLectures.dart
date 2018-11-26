@@ -62,7 +62,7 @@ class _LecState extends State<courseLec> {
         style: _biggerFont,
       ),
       subtitle: new Text(
-        pair["course_id"]+pair["course_name"],
+        pair["lecture_date"]+"\n"+pair["start_time"]+"-"+pair["end_time"]+"\nat "+pair["lecture_location_id"].toString(),
         style: _biggerFont,
       ),
         isThreeLine: true,//
@@ -99,12 +99,18 @@ class _LecState extends State<courseLec> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: new Text("Alert Dialog title"),
-          content: new Text("Alert Dialog body"),
+          title: new Text("Mark Attendence"),
+          content: new Text("Do you want to mark attendence for this lecture?"),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text("Mark"),
               onPressed: () {
                 Navigator.of(context).pop();
               },

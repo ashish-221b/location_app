@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class config{
-  static const String url  = "http://10.130.154.50:8080/SpotMe/";
+//  static const String url  = "http://10.130.154.50:8080/SpotMe/";
 //  static const String url  = "http://192.168.1.108:8080/SpotMe/";
+  static const String url  = "http://192.168.0.100:8080/SpotMe/";
   static const String login = "slogin/";
   static const String signup = "sreg/";
   static const String logout = "slogout/";
@@ -11,6 +12,7 @@ class config{
   static const String course_register = "scourse_register/";
   static const String course_details = "scourse_details/";
   static const String ping = "ping/";
+  static const String get_location = "get_location/";
   static const String create = "/CreateConversation";
   static const String auto = "/AutoCompleteUser";
   static const String list_loc = "list_location/";
@@ -19,8 +21,5 @@ class config{
   static String usern = " ";
   static String usere = " ";
   static const int timeout = 5;
-  static final GlobalKey<ScaffoldState> keyboi = new GlobalKey<ScaffoldState>();
-
-
   static bool isLoading;
 }

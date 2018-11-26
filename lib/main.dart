@@ -7,6 +7,7 @@ import 'Signup.dart';
 import 'Wifi_Api.dart';
 import 'loc_feedback.dart';
 import 'courseLectures.dart';
+import 'Get_Loc.dart';
 
 void main() => runApp(new MyApp());
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         '/home' : (context) => Home(),
         '/Create': (context) => NewConv(),
         '/signup' : (context) => Signup(),
-        '/wifi_loc' : (context) => Loc_feedback(),
+        '/wifi_loc' : (context) => Get_Loc(),
         '/register' : (context) => Register(),
         '/loc_feedback' : (context) => Loc_feedback(),
       },

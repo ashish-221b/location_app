@@ -37,7 +37,7 @@ class Session {
       http.Response response = await http.post(url, body: data, headers: headers).timeout(
           const Duration(seconds: config.timeout));
       updateCookie(response);
-      print(headers);
+      print(url);
       return response.body;
     }catch(e){
       print('hello there\n');
@@ -47,7 +47,7 @@ class Session {
 
   void updateCookie(http.Response response) {
     String rawCookie = response.headers['set-cookie'];
-    print(rawCookie);
+//    print(rawCookie);
     if (rawCookie != null) {
       int index = rawCookie.indexOf('sessionid');
       headers['cookie'] =

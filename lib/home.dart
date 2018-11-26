@@ -1,9 +1,7 @@
 // Add a stateful widget
 import 'courseLectures.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'session.dart';
-import 'dart:async';
 import 'dart:convert';
 import 'config.dart';
 import 'drawer.dart';
@@ -11,7 +9,7 @@ import 'session.dart';
 import 'loading.dart';
 import 'dart:convert' as JSON;
 import 'dart:core';
-import 'Wifi_Api.dart';
+import 'package:flutter/services.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -21,11 +19,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Session messenger = new Session();
-  StreamSubscription periodicSub;
   final String home_url= config.url + config.home;
   final logout_url = config.url+config.logout;
   final courseDet_url = config.url+config.course_details;
-  final String ping_url = config.url+config.ping;
   final String profile_url = config.url+config.profile;
   List<dynamic> _saved = new List<dynamic>();
   List<dynamic> _filt = new List<dynamic>();
@@ -34,8 +30,6 @@ class _HomeState extends State<Home> {
   Icon actionIcon = new Icon(Icons.search);
   Widget appBarTitle = new Text("Courses");
   String data = "Loading....";
-  WifiApi wa = new WifiApi();
-
   final TextEditingController searchField = new TextEditingController();
   String key="";
   _HomeState(){
@@ -81,20 +75,6 @@ class _HomeState extends State<Home> {
           config.isLoading = false;
         });
       }
-      periodicSub = new Stream.periodic(const Duration(milliseconds: 10000))
-          .take(10000)
-          .listen((_){
-            print("beacon");
-            wa.loadWifiList().then((t) {
-              print(t.toString());
-              messenger.post(ping_url,{"data" : "Hello There!!"}).then((t) {
-                var data = JSON.json.decode(t);
-                if(data["logged_in"]==false){
-                  periodicSub.cancel();
-                }
-              });
-            });
-      });
     });
 //    super.initState();
 
