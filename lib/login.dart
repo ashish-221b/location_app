@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'session.dart';
 import 'config.dart';
 import 'dart:convert' as JSON;
-import 'dart:async';
 import 'loading.dart';
 
 class Login extends StatefulWidget {
@@ -16,7 +15,6 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   final control_usr = TextEditingController();
   final control_pwd = TextEditingController();
-//  final GlobalKey<ScaffoldState> keyboi = new GlobalKey<ScaffoldState>();
 
   @override
   void initState(){
@@ -32,27 +30,20 @@ class _LoginState extends State<Login> {
   }
 
   void _updatestate(BuildContext context, String response) {
+    print(response);
     setState((){
       if(response.isEmpty){
-//        Scaffold.of(context)
-        config.keyboi.currentState
+        Scaffold.of(context)
             .showSnackBar(SnackBar(content: Text('Aw Snap! something went wrong')));
-        new Future.delayed(new Duration(seconds: 1), () => setState(() {
-          config.isLoading = false;
-        }));
       }else{
         final json = JSON.jsonDecode(response);
         if(json["status"]){
           Navigator.pushReplacementNamed(context, '/home');
         }else{
-//          Scaffold.of(context)
-          config.keyboi.currentState
-              .showSnackBar(SnackBar(content: Text(json['error_msg'])));
-          new Future.delayed(new Duration(seconds: 1), () => setState(() {
-            config.isLoading = false;
-          }));
-          //          Navigator.pushReplacementNamed(context, '/');
-
+          Scaffold.of(context)
+              .showSnackBar(SnackBar(content: Text(json["error_msg"])));
+//          Navigator.pushReplacementNamed(context, '/');
+          config.isLoading = false;
         }
       }
     });
@@ -129,10 +120,7 @@ class _LoginState extends State<Login> {
                           onPressed: () {
                             if (_formKey.currentState.validate()) {
 //                            print(control_usr.text);
-                              setState(() {
-                                config.isLoading = true;
-                              });
-
+                            config.isLoading = true;
                               Session messenger = new Session();
                               messenger.post(login_url, {"userid" : control_usr.text,"password" : control_pwd.text})
                                   .then((t) => this._updatestate(context, t));
