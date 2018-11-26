@@ -18,17 +18,18 @@ class Loc_feedback extends StatefulWidget {
 class _Loc_feedbackState extends State<Loc_feedback> {
 
   Session messenger = new Session();
-  final String get_loc_url = config.url + config.get_loc;
+  final String list_loc_url = config.url + config.list_loc;
+  final String location_data_url = config.url + config.location_data;
   final _formKey_feed = GlobalKey<FormState>();
   final control_location = TextEditingController();
   WifiApi wa = new WifiApi();
-//  Session messenger = new Session();
 //  final control_token = TextEditingController();
 
   List<DropdownMenuItem<String>> _dropDropMenuItems = [];
 //  [new DropdownMenuItem(value: "AAA", child: new Text("abc")),
 //  new DropdownMenuItem(value: "BBB", child: new Text("bcd"))];
   String curr_value;
+
 //  print(_dropDropMenuItems);
 
   @override
@@ -42,7 +43,7 @@ class _Loc_feedbackState extends State<Loc_feedback> {
   void initState(){
 //    curr_value = _dropDropMenuItems[0].value;
     config.isLoading = true;
-    messenger.get(get_loc_url).then((data) {
+    messenger.get(list_loc_url).then((data) {
       print(data);
       List<dynamic> loc_data = JSON.json.decode(data)['data'];
 
@@ -93,7 +94,14 @@ class _Loc_feedbackState extends State<Loc_feedback> {
                     onPressed: () {
 //                      print(messenger.toString());
 //                      print(wa.toString());
-                        wa.loadWifiList().then((t) => print(t.toString()));
+                        wa.loadWifiList().then((t) {
+                          print(t.toString());
+                          messenger.post(location_data_url, {
+                            'location' : curr_value.toString(),
+                            'wifi-data' : t.toString()
+                          });
+
+                        });
 //                      if (_formKey_reg.currentState.validate()) {
 //                        Session messenger = new Session();
 //                        messenger.post(login_url, {"userid" : control_course.text,"password" : control_token.text})

@@ -57,6 +57,7 @@ class _LoginState extends State<Login> {
     return App_loading();
   }
   return Scaffold(
+    resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text("Login"),
       ),
