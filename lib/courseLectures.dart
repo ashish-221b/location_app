@@ -68,6 +68,7 @@ class _LecState extends State<courseLec> {
         isThreeLine: true,//
       onTap: () {      // Add 9 lines from here...
         setState(() {
+          _showDialog();
 //          messenger.get(courseDet_url+"?takes_id="+Uri.encodeComponent(pair["takes_id"].toString())).then((t) => print(t));
 //          Navigator.of(context).pushReplacement(MaterialPageRoute(
 //              builder: (context) => chatDetails(target_id: pair.Name)
@@ -89,6 +90,28 @@ class _LecState extends State<courseLec> {
 
           return _buildRow(_courses[index]);
         }
+    );
+  }
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Alert Dialog title"),
+          content: new Text("Alert Dialog body"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

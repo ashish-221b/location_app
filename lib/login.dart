@@ -120,7 +120,7 @@ class _LoginState extends State<Login> {
                           onPressed: () {
                             if (_formKey.currentState.validate()) {
 //                            print(control_usr.text);
-                            config.isLoading = true;
+//                            config.isLoading = true;
                               Session messenger = new Session();
                               messenger.post(login_url, {"userid" : control_usr.text,"password" : control_pwd.text})
                                   .then((t) => this._updatestate(context, t));

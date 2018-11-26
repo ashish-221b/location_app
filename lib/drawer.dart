@@ -14,10 +14,8 @@ class App_Drawer extends StatefulWidget {
 class _App_DrawerState extends State<App_Drawer> {
 
   final String logout_url= config.url + config.logout;
-  final String ping_url = config.url+config.ping;
   StreamSubscription periodicSub;
   Session messenger = new Session();
-
   @override
   Widget build(BuildContext context){
     return Drawer(
@@ -29,7 +27,7 @@ class _App_DrawerState extends State<App_Drawer> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Text('Name: qwerty \nRoll No.: *******'),
+            child: Text('Name: '+config.usern+'\nEmail id.:'+config.usere),
             decoration: BoxDecoration(
               color: Colors.blue,
             ),

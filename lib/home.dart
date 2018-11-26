@@ -1,5 +1,6 @@
 // Add a stateful widget
 import 'courseLectures.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'session.dart';
 import 'dart:async';
@@ -19,9 +20,12 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Session messenger = new Session();
+  StreamSubscription periodicSub;
   final String home_url= config.url + config.home;
   final logout_url = config.url+config.logout;
   final courseDet_url = config.url+config.course_details;
+  final String ping_url = config.url+config.ping;
+  final String profile_url = config.url+config.profile;
   List<dynamic> _saved = new List<dynamic>();
   List<dynamic> _filt = new List<dynamic>();
   final TextStyle _biggerFont = const TextStyle(fontSize: 18.0);
@@ -53,9 +57,19 @@ class _HomeState extends State<Home> {
   @override
   void initState(){
     config.isLoading = true;
+    messenger.get(profile_url).then((t){
+      setState(() {
+        var data = JSON.json.decode(t);
+        if(data["status"]=true){
+          config.usern=data["username"];
+          config.usere=data["email"];
+          print(config.usern);
+          print(data.toString());
+        }
+      });});
     messenger.get(home_url).then((data) {
       print(data);
-      Map<String, dynamic> course_data = json.decode(data);
+      Map<String, dynamic> course_data = JSON.json.decode(data);
       if(course_data['status']){
         setState(() {
           _saved = course_data['data'];
@@ -64,7 +78,17 @@ class _HomeState extends State<Home> {
           config.isLoading = false;
         });
       }
-
+      periodicSub = new Stream.periodic(const Duration(milliseconds: 10000))
+          .take(10000)
+          .listen((_){
+            print("beacon");
+        messenger.post(ping_url,{"data" : "Hello There!!"}).then((t) {
+          var data = JSON.json.decode(t);
+          if(data["logged_in"]==false){
+            periodicSub.cancel();
+          }
+        });
+      });
     });
 //    super.initState();
 

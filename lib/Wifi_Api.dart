@@ -50,7 +50,7 @@ class WifiApi{
       _htResultNetwork.forEach((oNetwork) {
 
         // Check for wifi in standard wifi;s
-        if(_standard_wifi.contains(oNetwork.ssid)){
+        if(_standard_wifi.contains(oNetwork.ssid)||true){
 //          print(oNetwork.ssid + " " + oNetwork.bssid + " : " + oNetwork.level.toString());
 
           dynamic _temp_data = {};
