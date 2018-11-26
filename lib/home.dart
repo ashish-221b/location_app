@@ -11,6 +11,7 @@ import 'session.dart';
 import 'loading.dart';
 import 'dart:convert' as JSON;
 import 'dart:core';
+import 'Wifi_Api.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -33,6 +34,8 @@ class _HomeState extends State<Home> {
   Icon actionIcon = new Icon(Icons.search);
   Widget appBarTitle = new Text("Courses");
   String data = "Loading....";
+  WifiApi wa = new WifiApi();
+
   final TextEditingController searchField = new TextEditingController();
   String key="";
   _HomeState(){
@@ -82,12 +85,15 @@ class _HomeState extends State<Home> {
           .take(10000)
           .listen((_){
             print("beacon");
-        messenger.post(ping_url,{"data" : "Hello There!!"}).then((t) {
-          var data = JSON.json.decode(t);
-          if(data["logged_in"]==false){
-            periodicSub.cancel();
-          }
-        });
+            wa.loadWifiList().then((t) {
+              print(t.toString());
+              messenger.post(ping_url,{"data" : "Hello There!!"}).then((t) {
+                var data = JSON.json.decode(t);
+                if(data["logged_in"]==false){
+                  periodicSub.cancel();
+                }
+              });
+            });
       });
     });
 //    super.initState();

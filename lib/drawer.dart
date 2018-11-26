@@ -67,18 +67,18 @@ class _App_DrawerState extends State<App_Drawer> {
               Navigator.pushReplacementNamed(context, '/loc_feedback');
             },
           ),
-          new ListTile(
-            title: Text('My Account'),
-            onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              print("Choosen My Account");
-//              int j = 0;
-
-//              Navigator.pushReplacementNamed(context, '/wifi_loc');
-            },
-          ),
+//          new ListTile(
+//            title: Text('My Account'),
+//            onTap: () {
+//              // Update the state of the app
+//              // ...
+//              // Then close the drawer
+//              print("Choosen My Account");
+////              int j = 0;
+//
+////              Navigator.pushReplacementNamed(context, '/wifi_loc');
+//            },
+//          ),
           new ListTile(
             title: Text('Logout'),
             onTap: () {
