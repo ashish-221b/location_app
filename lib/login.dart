@@ -50,6 +50,7 @@ class _LoginState extends State<Login> {
 //              print(t.toString());
               messenger.post(ping_url,{"wifi-data" : t.toString()}).then((t1) {
                 var data = JSON.json.decode(t1);
+                print(t1.toString());
                 if(data["logged_in"]==false){
                   periodicSub.cancel();
                 }

@@ -95,7 +95,7 @@ class _HomeState extends State<Home> {
                   this.appBarTitle = new TextField(
                     controller: searchField,
                     decoration: new InputDecoration(
-                        prefixIcon: new Icon(Icons.search,color: Colors.white),
+                        prefixIcon: Icon(Icons.search,color: Colors.white),
                         hintText: "Search...",
                         hintStyle: new TextStyle(color: Colors.white)
                     ),);}
@@ -142,7 +142,7 @@ class _HomeState extends State<Home> {
         style: _biggerFont,
       ),
       subtitle: new Text(
-        pair["course_name"],
+        pair["course_name"]+"\n"+pair["instructor"],
         style: _biggerFont,
       ),                   //
       onTap: () {      // Add 9 lines from here...

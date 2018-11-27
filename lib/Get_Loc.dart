@@ -23,6 +23,7 @@ class _Loc_State extends State<Get_Loc> {
   final _formKey_feed = GlobalKey<FormState>();
   final control_location = TextEditingController();
   WifiApi wa = new WifiApi();
+  final TextStyle _biggerFont = const TextStyle(fontSize: 18.0);
 //  final control_token = TextEditingController();
 
   List<DropdownMenuItem<String>> _dropDropMenuItems = [];
