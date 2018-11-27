@@ -62,19 +62,19 @@ class _LecState extends State<courseLec> {
         style: _biggerFont,
       ),
       subtitle: new Text(
-        pair["lecture_date"]+"\n"+pair["start_time"]+"-"+pair["end_time"]+"\nat "+pair["lecture_location_id"].toString(),
+        pair["lecture_date"]+"\n"+pair["start_time"]+"-"+pair["end_time"]+"\nat "+pair["location_name"].toString(),
         style: _biggerFont,
       ),
         isThreeLine: true,//
       onTap: () {      // Add 9 lines from here...
-        setState(() {
-          _showDialog();
-//          messenger.get(courseDet_url+"?takes_id="+Uri.encodeComponent(pair["takes_id"].toString())).then((t) => print(t));
-//          Navigator.of(context).pushReplacement(MaterialPageRoute(
-//              builder: (context) => chatDetails(target_id: pair.Name)
-//          )
-//          );
-        });
+//        setState(() {
+////          _showDialog();
+////          messenger.get(courseDet_url+"?takes_id="+Uri.encodeComponent(pair["takes_id"].toString())).then((t) => print(t));
+////          Navigator.of(context).pushReplacement(MaterialPageRoute(
+////              builder: (context) => chatDetails(target_id: pair.Name)
+////          )
+////          );
+//        });
       },
     );
   }

@@ -114,7 +114,9 @@ class _LoginState extends State<Login> {
         title: Text("Login"),
       ),
       body: Builder(
-        builder: (BuildContext context) { return Form(
+        builder: (BuildContext context) {
+          return SingleChildScrollView(
+          child: Form(
           key: _formKey,
           child: Column(
 
@@ -205,6 +207,7 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ],
+          ),
           ),
         );
         },

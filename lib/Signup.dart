@@ -51,10 +51,10 @@ class _SignupState extends State<Signup> {
           title: Text("Signup"),
         ),
         body: Builder(
-          builder: (BuildContext context) { return Form(
+          builder: (BuildContext context) { return SingleChildScrollView(
+            child: Form(
             key: _formKey,
             child: Column(
-
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
 //                Padding(
@@ -221,6 +221,7 @@ class _SignupState extends State<Signup> {
                 ),
               ],
             ),
+          ),
           );
           },
         )

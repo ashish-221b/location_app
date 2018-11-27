@@ -46,7 +46,7 @@ class _RegisterState extends State<Register> {
           )
         ]
       ),
-      body: Center(
+      body: SingleChildScrollView(
           child: Form(
             key: _formKey_reg,
             child: Column(
@@ -87,6 +87,16 @@ class _RegisterState extends State<Register> {
                         messenger.post(course_register_url, {"course_id" : control_course.text, "session_token" : control_token.text})
                             .then((data) {
                               print(data);
+                              setState(() {
+                                var dat=JSON.json.decode(data);
+                                if(dat["status"]==false){
+                                  print(dat["error_msg"]);
+                                  print(Scaffold.of(context));
+                                  Scaffold.of(context)
+                                      .showSnackBar(SnackBar(content: Text(dat["error_msg"])));
+                                }
+                              });
+
 
                         });
                       }
