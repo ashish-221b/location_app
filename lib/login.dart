@@ -4,6 +4,7 @@ import 'config.dart';
 import 'dart:convert' as JSON;
 import 'loading.dart';
 import 'dart:async';import 'Wifi_Api.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter/services.dart';
 class Login extends StatefulWidget {
   @override
@@ -20,10 +21,26 @@ class _LoginState extends State<Login> {
   final control_pwd = TextEditingController();
   WifiApi wa = new WifiApi();
   Session messenger = new Session();
+  final flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+
   @override
   void initState(){
     config.isLoading = false;
     super.initState();
+    // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
+    var initializationSettingsAndroid =
+    new AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializationSettingsIOS = new IOSInitializationSettings();
+    var initializationSettings = new InitializationSettings(
+        initializationSettingsAndroid, initializationSettingsIOS);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: onSelectNotification);
+  }
+
+  Future onSelectNotification(String payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: ' + payload);
+    }
   }
 
   @override
@@ -50,6 +67,10 @@ class _LoginState extends State<Login> {
 //              print(t.toString());
               messenger.post(ping_url,{"wifi-data" : t.toString()}).then((t1) {
                 var data = JSON.json.decode(t1);
+                print(data);
+                if( data['data']['next_lecture'] != "No Lecture Found"){
+                  _showNotification('Lecture Scheduled at ' + data['data']['next_lecture']['staet_time'], data['data']['next_lecture']['lecture_title']);
+                }
                 print(t1.toString());
                 if(data["logged_in"]==false){
                   periodicSub.cancel();
@@ -66,6 +87,18 @@ class _LoginState extends State<Login> {
         }
       }
     });
+  }
+
+  Future _showNotification(title, body) async {
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+        'id', 'name', 'description',
+        importance: Importance.Max, priority: Priority.High);
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+    var platformChannelSpecifics = new NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.show(
+        0, title, body, platformChannelSpecifics,
+        payload: '');
   }
 
   @override
